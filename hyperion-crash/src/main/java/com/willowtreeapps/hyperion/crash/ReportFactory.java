@@ -39,8 +39,15 @@ class ReportFactory {
         sb.append(error.getMessage());
         sb.append("\n");
         for (StackTraceElement e : error.getStackTrace()) {
+            sb.append("   ");
             sb.append(e.toString());
             sb.append("\n");
+        }
+        final Throwable cause = error.getCause();
+        if (cause != null) {
+            sb.append("Caused by:");
+            sb.append("\n");
+            sb.append(createStackTraceString(cause));
         }
         return sb.toString();
     }
